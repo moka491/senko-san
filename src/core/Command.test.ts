@@ -1,8 +1,9 @@
 import { Command } from "./Command";
 import { Message } from "discord.js";
 
-class TestCommand implements Command {
-  aliases = ["TestCommand"];
+class TestCommand extends Command {
+  commandName = "testCommand";
+  aliases = ["TestCommandAlias"];
   helpDescription = "TestDescription";
   invoke(message: Message, args: string[]): void {
     args.push("AddedArgForTesting");
@@ -12,7 +13,8 @@ class TestCommand implements Command {
 const testCommand = new TestCommand();
 
 test("Command properties are set properly on the extended Command class", () => {
-  expect(testCommand.aliases).toContainEqual("TestCommand");
+  expect(testCommand.commandName).toBe("testCommand");
+  expect(testCommand.aliases).toContainEqual("TestCommandAlias");
   expect(testCommand.helpDescription).toBe("TestDescription");
 });
 

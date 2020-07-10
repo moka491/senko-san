@@ -7,7 +7,8 @@
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
-    "test": "jest"
+    "test": "jest",
+    "test:clearCache": "jest --clearCache"
   },
   "keywords": [
     "discord.js",

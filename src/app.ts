@@ -14,13 +14,12 @@ client.on("message", (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
-  const commandName = args.shift().toLowerCase();
+  const commandMatch = Commands.findRecursive(args);
 
-  const Command = Commands.find(commandName);
-
-  if (!Command) return;
-
-  Command.invoke(message, args);
+  if (commandMatch) {
+    const [command, remainingArgs] = commandMatch;
+    command.invoke(message, remainingArgs);
+  }
 });
 
 client.login(token);
