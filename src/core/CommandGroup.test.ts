@@ -72,7 +72,4 @@ test("Finding command inside nested CommandGroups with prefixes", () => {
 
   // Also find nothing if you don't add a command, just a group name
   expect(outerGroup.findRecursive(["info"])).toBe(null);
-
-  // Also find nothing if you don't add a command, just a group name
-  expect(outerGroup.findRecursive(["info"])).toBe(null);
 });
