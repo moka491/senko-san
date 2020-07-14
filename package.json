@@ -1,6 +1,9 @@
 {
   "name": "korosan",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "description": "A discord bot using Discord.js and written in Typescript",
   "main": "dist/app.js",
   "scripts": {
@@ -8,7 +11,9 @@
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
     "test": "jest",
-    "test:clearCache": "jest --clearCache"
+    "test:clearCache": "jest --clearCache",
+    "test:coverage": "jest --collectCoverage",
+    "test:uploadCoverageWindows": "codecov.exe -f coverage/coverage-final.json -t"
   },
   "keywords": [
     "discord.js",
