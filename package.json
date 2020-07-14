@@ -15,6 +15,11 @@
     "test:coverage": "jest --collectCoverage",
     "test:uploadCoverageWindows": "codecov.exe -f coverage/coverage-final.json -t"
   },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm test"
+    }
+  },
   "keywords": [
     "discord.js",
     "discord",
@@ -38,10 +43,10 @@
   "devDependencies": {
     "@types/jest": "^26.0.4",
     "@types/node": "^14.0.19",
+    "husky": "^4.2.5",
     "jest": "^26.1.0",
     "node-gyp": "^7.0.0",
     "nodemon": "^2.0.4",
-    "pre-push": "^0.1.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.1.1",
     "ts-node": "^8.10.2",

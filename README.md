@@ -5,6 +5,8 @@
 
 # Koro-san
 
+![David](https://img.shields.io/david/moka491/korosan?style=flat-square)![Codecov branch](https://img.shields.io/codecov/c/github/moka491/korosan/master?style=flat-square)![GitHub package.json version](https://img.shields.io/github/package-json/v/moka491/korosan?style=flat-square)![Node engine version](https://img.shields.io/badge/node-%3E%3D14.0.0-blue?style=flat-square)![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/moka491/korosan/discord.js?style=flat-square)
+
 Koro-san is your helpful Discord bot with a whole bunch of features (wip™).  
 It's a practice project for me to learn TypeScript, Jest, TOML and Node.
 
