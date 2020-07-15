@@ -2,6 +2,11 @@ import { Table, Column, Model, BelongsToMany } from "sequelize-typescript";
 import { User } from "../User";
 import { UserScheduleAction } from "./UserScheduleAction";
 
+/**
+ * The ScheduleAction defines the action or task triggered whenever the
+ * scheduled job is meant to "trigger", i.e. when the current date and time
+ * matches it's defined conditions.
+ */
 @Table
 export class ScheduleAction extends Model<ScheduleAction> {
   /**

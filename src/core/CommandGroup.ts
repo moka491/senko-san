@@ -29,8 +29,8 @@ export class CommandGroup {
   }
 
   findRecursive(commandArgs: Array<string>): [Command, Array<string>] {
-    if (commandArgs?.length < 1) {
-      return;
+    if (!commandArgs || commandArgs.length < 1) {
+      return null;
     }
 
     // If this group has a prefix, it's expected of all

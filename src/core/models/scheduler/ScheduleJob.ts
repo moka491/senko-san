@@ -2,6 +2,11 @@ import { Table, Column, Model } from "sequelize-typescript";
 import { User } from "discord.js";
 import { ScheduleAction } from "./ScheduleAction";
 
+/**
+ * ScheduleJob defines a single scheduled task or reminder.
+ * It can either be of type "DateBasedScheduleJob" when triggering at a fixed dateTime in the future,
+ * or "RecurringScheduleJob" for recurring events.
+ */
 @Table
 export class ScheduleJob extends Model<ScheduleJob> {
   /**

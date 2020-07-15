@@ -12,6 +12,15 @@ class TestCommand2 extends Command {
   invoke(message: Message, args: string[]): void {}
 }
 
+test("Create a new CommandGroup with default options", () => {
+  // Create a group using the default constructor values
+  const defaultGroup = new CommandGroup();
+
+  expect(defaultGroup.commands.length).toBe(0);
+
+  expect(defaultGroup.groupPrefix).toBe(undefined);
+});
+
 test("Create a new CommandGroup with a Command already added", () => {
   // Create initial Set with one Command already in it
   const group = new CommandGroup({}, [new TestCommand()]);
@@ -23,13 +32,13 @@ test("Create a new CommandGroup with a Command already added", () => {
   expect(group.findCommand("TestCommand").commandName).toBe("TestCommand");
 });
 
-test("Finding command inside nested CommandGroups with prefixes", () => {
+test("Finding a command recursively", () => {
   // Create test commands
   const testCommand = new TestCommand();
   const testCommand2 = new TestCommand2();
 
   // Create tree structure with some CommandGroups
-  // outer => { info[], system[TestCommand] => network[TestCommand2] }
+  // outer => { info[], errorous[null], system[TestCommand] => network[TestCommand2] }
   const systemNetworkGroup = new CommandGroup({ groupPrefix: "network" }, [
     testCommand2,
   ]);
@@ -39,7 +48,12 @@ test("Finding command inside nested CommandGroups with prefixes", () => {
     [systemNetworkGroup]
   );
   const infoGroup = new CommandGroup({ groupPrefix: "info" }, []);
-  const outerGroup = new CommandGroup({}, [], [systemGroup, infoGroup]);
+  const errorousGroup = new CommandGroup({}, [null]);
+  const outerGroup = new CommandGroup(
+    {},
+    [],
+    [systemGroup, infoGroup, errorousGroup]
+  );
 
   // Expect to find testCommand2 with no arguments left
   expect(
@@ -72,4 +86,7 @@ test("Finding command inside nested CommandGroups with prefixes", () => {
 
   // Also find nothing if you don't add a command, just a group name
   expect(outerGroup.findRecursive(["info"])).toBe(null);
+
+  // An empty array or any other type of argument will return null;
+  expect(outerGroup.findRecursive(null)).toBe(null);
 });

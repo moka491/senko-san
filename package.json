@@ -1,6 +1,6 @@
 {
   "name": "korosan",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "engines": {
     "node": ">=14.0.0"
   },
@@ -10,9 +10,9 @@
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
-    "test": "jest",
+    "test": "npm run build && jest",
+    "test:coverage": "npm run build && jest --collectCoverage",
     "test:clearCache": "jest --clearCache",
-    "test:coverage": "jest --collectCoverage",
     "test:uploadCoverageWindows": "codecov.exe -f coverage/coverage-final.json -t"
   },
   "husky": {
