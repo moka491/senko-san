@@ -27,14 +27,14 @@ Finally, open a terminal in the project folder and execute the following in orde
 # Install the dependencies
 npm install # (or yarn)
 
-# Or: build and start for production use
+# Build and start for production use
 npm run start # (yarn start)
 ```
 
 And there you go!  
 You can now invite the bot to any server of your choice and use it!  
 If you need an invite link, go [here](https://discord.com/developers/applications) again, select your application,
-click on the OAuth2 tab and click the `bot` checkbox in the `Scopes` box.
+click on the OAuth2 tab and click the `bot` checkbox in the `Scopes` block.
 
 ## Developing
 
@@ -60,8 +60,8 @@ You then find the output of that build in the `./dist` folder.
 
 ### Deploying / Publishing
 
-Deploy the code on any environment you'd like, you only need Node > v14 installed.  
-Follow the steps of `Getting Started` to set up a new Discord Application (since you don't want to use your dev application token), create the config file just like above, and run the following two commands:
+Deploy the code on any environment you'd like, you only need Node >= v14 installed.  
+Follow the steps of `Getting Started` and set up a new Discord application (since you don't want to use your dev application token), create the config file just like above, and run the following two commands:
 
 ```bash
 npm install
