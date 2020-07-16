@@ -12,17 +12,19 @@ class TestCommand extends Command {
 
 const testCommand = new TestCommand();
 
-test("Command properties are set properly on the extended Command class", () => {
-  expect(testCommand.commandName).toBe("testCommand");
-  expect(testCommand.aliases).toContainEqual("TestCommandAlias");
-  expect(testCommand.helpDescription).toBe("TestDescription");
-});
+describe("Command class", () => {
+  it("can have properties assigned to it", () => {
+    expect(testCommand.commandName).toBe("testCommand");
+    expect(testCommand.aliases).toContainEqual("TestCommandAlias");
+    expect(testCommand.helpDescription).toBe("TestDescription");
+  });
 
-test("Command can be properly invoked", () => {
-  // Invoke the command with a variable that is changed
-  // within the invoke implementation. If it was changed, the correct invoke function was called
-  const args = [];
-  testCommand.invoke(null, args);
+  it("can be properly invoked", () => {
+    // Invoke the command with a variable that is changed
+    // within the invoke implementation. If it was changed, the correct invoke function was called
+    const args = [];
+    testCommand.invoke(null, args);
 
-  expect(args.length).toBe(1);
+    expect(args.length).toBe(1);
+  });
 });
