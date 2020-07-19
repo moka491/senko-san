@@ -39,6 +39,7 @@
     "erlpack": "github:discordapp/erlpack",
     "libsodium-wrappers": "^0.7.6",
     "lodash.merge": "^4.6.2",
+    "pg": "^8.3.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",
     "sequelize-typescript": "^1.1.0",

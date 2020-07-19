@@ -1,3 +1,11 @@
 [bot]
 # prefix = "$"
 token = "<your discord bot token>"
+
+[database]
+hostname = "localhost"
+database = "korosan"
+username = "postgres"
+password = "postgres"
+port = 5432
+
