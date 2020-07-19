@@ -86,6 +86,6 @@ You can always run them using `npm test`.
 
 The code in this project is licensed under MIT license.
 
-<hr />
+- - -
 
 _readme template gladly taken from [jehna/readme-best-practices](https://github.com/jehna/readme-best-practices)_
