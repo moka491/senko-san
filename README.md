@@ -1,6 +1,7 @@
 <p align="center">
 <img height="180" align="absmiddle" src="https://user-images.githubusercontent.com/31903525/87408844-5e06fe80-c5c4-11ea-8b52-3d306cd332b2.png" alt="Logo of Koro-san">
 </p>
+<!-- Snek was here -->
 <p align="center"><i>Give me all your fingers. Right now!</i></p>
 
 # Koro-san
@@ -85,6 +86,6 @@ You can always run them using `npm test`.
 
 The code in this project is licensed under MIT license.
 
-<hr />
+- - -
 
 _readme template gladly taken from [jehna/readme-best-practices](https://github.com/jehna/readme-best-practices)_
