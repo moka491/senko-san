@@ -16,23 +16,21 @@ export class ConfigHandler {
   load(): this {
     // Exit if the user config file doesn't exist
     if (!fs.existsSync(CONFIG_PATH)) {
-      console.error(
+      throw Error(
         "The bot's config file wasn't found. Make sure there's a valid file in " +
           CONFIG_PATH
       );
-      process.exit(1);
     }
 
     // Read the config.toml
     const configToml = fs.readFileSync(CONFIG_PATH, "utf8");
 
     // Try to parse it and exit on error
-    let userConfig;
+    let userConfig: TOML.JsonMap;
     try {
       userConfig = TOML.parse(configToml);
     } catch (err) {
-      console.error("There's an error in the bot's config file: " + err);
-      process.exit(1);
+      throw Error("There's an error in the bot's config file: " + err.message);
     }
 
     // Merge the user config with the defaults

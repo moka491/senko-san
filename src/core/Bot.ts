@@ -15,9 +15,6 @@ export class Bot {
     this.configHandler = new ConfigHandler().load();
     this.config = this.configHandler.config;
 
-    console.log("loaded config: ");
-    console.log(this.config);
-
     this.dataHandler = new DataHandler(this.config);
   }
 
