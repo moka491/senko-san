@@ -1,0 +1,40 @@
+@startuml DataModel
+
+entity "User" {
+  * id: number
+  --
+  timeZone: string
+}
+
+entity "ScheduleJob" {
+  *id: number
+  --
+  serverId: number
+  channelId: number
+  ownerId: User
+  --
+  reminder: string
+  isBotCommand: boolean
+  --
+  mentionUsers: User[]
+}
+
+entity "DateBasedScheduleJob" {
+  * job: ScheduleJob
+  --
+  executeAt: Date
+}
+
+entity "RecurringScheduleJob" {
+  * job: ScheduleJob
+  --
+  startDate: Date
+  endDate: Date
+  cronRule: string
+}
+
+User "0..n" -- "0..n" ScheduleJob : is reminded by >
+User "1..1" -- "0..n" ScheduleJob : owns >
+ScheduleJob "1..1" -- "0..1" DateBasedScheduleJob
+ScheduleJob "1..1" -- "0..1" RecurringScheduleJob
+@enduml
