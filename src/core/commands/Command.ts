@@ -1,4 +1,5 @@
 import { Message } from "discord.js";
+import { Bot } from "../Bot";
 
 export abstract class Command {
   // The exact string needed for the command to be executed
@@ -11,5 +12,5 @@ export abstract class Command {
   helpExamples: Array<string> = [];
 
   // The function executed when this command is called
-  abstract invoke(message: Message, args: Array<string>): void;
+  abstract invoke(bot: Bot, message: Message, args: Array<string>): void;
 }
