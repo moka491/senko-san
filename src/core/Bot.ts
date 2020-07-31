@@ -5,10 +5,11 @@ import { ConfigHandler } from "./ConfigHandler";
 import { Commands } from "../commands";
 
 export class Bot {
-  private client: Client;
-  private dataHandler: DataHandler;
-  private configHandler: ConfigHandler;
-  private config: Config;
+  public readonly client: Client;
+  public readonly dataHandler: DataHandler;
+  public readonly configHandler: ConfigHandler;
+  public readonly scheduler: Scheduler;
+  public readonly config: Config;
 
   constructor() {
     this.client = new Client({ shards: "auto" });
@@ -19,7 +20,10 @@ export class Bot {
   }
 
   async start() {
-    await this.dataHandler.init();
+    await this.dataHandler.init().catch((err) => {
+      console.error(err);
+      process.exit();
+    });
 
     this.client.once("ready", this.onceReady.bind(this));
     this.client.on("message", this.onMessage.bind(this));
@@ -46,7 +50,7 @@ export class Bot {
 
     if (commandMatch) {
       const [command, remainingArgs] = commandMatch;
-      command.invoke(message, remainingArgs);
+      command.invoke(this, message, remainingArgs);
     }
   }
 }
