@@ -34,6 +34,8 @@
     "@types/bluebird": "^3.5.32",
     "@types/validator": "^13.1.0",
     "bufferutil": "^4.0.1",
+    "chevrotain": "^7.0.1",
+    "cron": "^1.8.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "erlpack": "github:discordapp/erlpack",
