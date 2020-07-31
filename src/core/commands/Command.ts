@@ -6,7 +6,6 @@ export abstract class Command {
 
   // The function executed when this command is called
   abstract invoke(bot: Bot, message: Message, args: Array<string>): void;
-<<<<<<< HEAD
 }
 
 export interface CommandOptions {
@@ -14,6 +13,4 @@ export interface CommandOptions {
   aliases?: string[];
   description?: string;
   examples?: string[];
-=======
->>>>>>> bbd82ab... Add Bot to command invokation
 }

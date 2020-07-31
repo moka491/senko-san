@@ -3,6 +3,7 @@ import { DataHandler } from "./DataHandler";
 import { Config } from "./Config";
 import { ConfigHandler } from "./ConfigHandler";
 import { Commands } from "../commands";
+import { Scheduler } from "./Scheduler";
 
 export class Bot {
   public readonly client: Client;
