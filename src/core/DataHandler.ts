@@ -20,13 +20,11 @@ export class DataHandler {
 
   async init() {
     await this.sequelize.authenticate().catch((err) => {
-      console.log("Couldn't connect to database server! Error: " + err);
-      process.exit(1);
+      throw Error("Couldn't connect to database server! Error: " + err);
     });
 
     await this.sequelize.sync().catch((err) => {
-      console.log("Couldn't sync database with data model! Error: " + err);
-      process.exit(1);
+      throw Error("Couldn't sync database with data model! Error: " + err);
     });
   }
 }
