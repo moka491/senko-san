@@ -1,15 +1,16 @@
 import { CommandGroup } from "./CommandGroup";
 import { Command } from "./Command";
 import { Message } from "discord.js";
+import { Bot } from "../Bot";
 
 class TestCommand extends Command {
   commandName = "TestCommand";
-  invoke(message: Message, args: string[]): void {}
+  invoke(bot: Bot, message: Message, args: string[]): void {}
 }
 
 class TestCommand2 extends Command {
   commandName = "TestCommand2";
-  invoke(message: Message, args: string[]): void {}
+  invoke(bot: Bot, message: Message, args: string[]): void {}
 }
 
 describe("CommandGroup class", () => {
