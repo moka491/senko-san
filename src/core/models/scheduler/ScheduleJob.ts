@@ -17,7 +17,7 @@ import { UserScheduleJobs } from "./UserScheduleJobs";
 @Table
 export class ScheduleJob extends Model<ScheduleJob> {
   @Column
-  serverId: number;
+  guildId: number;
 
   @Column
   channelId: number;
@@ -27,7 +27,13 @@ export class ScheduleJob extends Model<ScheduleJob> {
   ownerId: number;
 
   @Column
-  reminder: string;
+  remindDate: Date;
+
+  @Column
+  cronRule: string;
+
+  @Column
+  reminderString: string;
 
   @Column
   isCommand: boolean;
