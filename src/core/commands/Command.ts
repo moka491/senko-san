@@ -1,15 +1,16 @@
 import { Message } from "discord.js";
+import { Bot } from "../Bot";
 
 export abstract class Command {
-  // The exact string needed for the command to be executed
-  abstract commandName: string;
-
-  // Optional command options
-  aliases: Array<string> = [];
-  showInHelp: boolean = false;
-  helpDescription: string = "";
-  helpExamples: Array<string> = [];
+  options: CommandOptions;
 
   // The function executed when this command is called
-  abstract invoke(message: Message, args: Array<string>): void;
+  abstract invoke(bot: Bot, message: Message, args: Array<string>): void;
+}
+
+export interface CommandOptions {
+  name: string;
+  aliases?: string[];
+  description?: string;
+  examples?: string[];
 }

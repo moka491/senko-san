@@ -21,7 +21,7 @@ export class CommandGroup {
 
   findCommand(commandName: string): Command {
     for (let command of this.commands) {
-      if (command?.commandName === commandName) {
+      if (command?.options.name === commandName) {
         return command;
       }
     }

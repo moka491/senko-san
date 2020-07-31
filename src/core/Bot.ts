@@ -46,7 +46,7 @@ export class Bot {
 
     if (commandMatch) {
       const [command, remainingArgs] = commandMatch;
-      command.invoke(message, remainingArgs);
+      command.invoke(this, message, remainingArgs);
     }
   }
 }
