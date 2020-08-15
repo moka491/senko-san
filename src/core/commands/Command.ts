@@ -5,7 +5,7 @@ export abstract class Command {
   options: CommandOptions;
 
   // The function executed when this command is called
-  abstract invoke(bot: Bot, message: Message, args: Array<string>): void;
+  abstract invoke(bot: Bot, msg: Message, args: Array<string>): void;
 }
 
 export interface CommandOptions {

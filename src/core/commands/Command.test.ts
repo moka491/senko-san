@@ -6,7 +6,7 @@ class TestCommand extends Command {
   commandName = "testCommand";
   aliases = ["TestCommandAlias"];
   helpDescription = "TestDescription";
-  invoke(bot: Bot, message: Message, args: string[]): void {
+  invoke(bot: Bot, msg: Message, args: string[]): void {
     args.push("AddedArgForTesting");
   }
 }

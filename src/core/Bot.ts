@@ -36,22 +36,17 @@ export class Bot {
     console.log("I am ready!");
   }
 
-  onMessage(message: Message) {
-    if (
-      !message.content.startsWith(this.config.bot.prefix) ||
-      message.author.bot
-    ) {
+  onMessage(msg: Message) {
+    if (!msg.content.startsWith(this.config.bot.prefix) || msg.author.bot) {
       return;
     }
 
-    const args = message.content
-      .slice(this.config.bot.prefix.length)
-      .split(/ +/);
+    const args = msg.content.slice(this.config.bot.prefix.length).split(/ +/);
     const commandMatch = Commands.findRecursive(args);
 
     if (commandMatch) {
       const [command, remainingArgs] = commandMatch;
-      command.invoke(this, message, remainingArgs);
+      command.invoke(this, msg, remainingArgs);
     }
   }
 }

@@ -10,7 +10,7 @@ import { Bot } from "../../core/Bot";
   examples: ["ping a b c", "pg 1 2 3"],
 })
 export class PingCommand extends Command {
-  invoke(bot: Bot, message: Message, args: string[]): void {
-    message.reply("Pong with args: " + args);
+  invoke(bot: Bot, msg: Message, args: string[]): void {
+    msg.reply("Pong with args: " + args);
   }
 }

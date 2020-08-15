@@ -9,14 +9,13 @@ export class Scheduler {
   }
 
   schedule(job: ScheduleJob) {
-    const cronJob = new CronJob(
-      job.cronRule || job.remindDate,
-      this.executeJob(job),
-      null,
-      true
-    );
-
-    this.jobList.set(job, cronJob);
+    // const cronJob = new CronJob(
+    //   job.cronRule || job.fixedDate,
+    //   this.executeJob(job),
+    //   null,
+    //   true
+    // );
+    // this.jobList.set(job, cronJob);
   }
 
   scheduleAll(jobs: ScheduleJob[]) {

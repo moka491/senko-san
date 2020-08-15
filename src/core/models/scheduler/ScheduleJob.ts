@@ -24,10 +24,13 @@ export class ScheduleJob extends Model<ScheduleJob> {
 
   @ForeignKey(() => User)
   @Column
-  ownerId: number;
+  creatorId: number;
 
   @Column
-  remindDate: Date;
+  fixedDate: Date;
+
+  @Column
+  isRecurring: boolean;
 
   @Column
   cronRule: string;
@@ -39,7 +42,7 @@ export class ScheduleJob extends Model<ScheduleJob> {
   isCommand: boolean;
 
   @BelongsTo(() => User)
-  owner: User;
+  creator: User;
 
   @BelongsToMany(() => User, () => UserScheduleJobs)
   mentionUsers: User[];

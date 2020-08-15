@@ -8,14 +8,14 @@ import { command } from "./decorators";
   name: "TestCommand",
 })
 class TestCommand extends Command {
-  invoke(bot: Bot, message: Message, args: string[]): void {}
+  invoke(bot: Bot, msg: Message, args: string[]): void {}
 }
 
 @command({
   name: "TestCommand2",
 })
 class TestCommand2 extends Command {
-  invoke(bot: Bot, message: Message, args: string[]): void {}
+  invoke(bot: Bot, msg: Message, args: string[]): void {}
 }
 
 describe("CommandGroup class", () => {
