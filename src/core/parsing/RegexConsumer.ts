@@ -7,17 +7,20 @@ export class RegexConsumer {
     // uses match indices polyfill until the proposal https://github.com/tc39/proposal-regexp-match-indices is implemented
     let match = execWithIndices(regex, this.text);
 
-    // only process matches if there's enough matches for the requested indices
-    if (match && match.length > Math.max(...indices)) {
+    if (match) {
       let consumeRanges: RegExpExecIndicesArray = match.indices
         // filter out the match indices which we didn't request
         .filter((item, i) => indices.includes(i))
         // filter out the (nested) groups which are encapsulated completely in other groups.
         .filter(
-          ([mStart, mEnd], index, self) =>
+          (range, index, self) =>
+            range &&
             !self.some(
-              ([otherStart, otherEnd], otherIndex) =>
-                otherStart <= mStart && mEnd <= otherEnd && index !== otherIndex
+              (otherRange, otherIndex) =>
+                otherRange &&
+                index !== otherIndex &&
+                otherRange[0] <= range[0] &&
+                range[1] <= otherRange[1]
             )
         )
         // Sort by descending end index, so that removal can work
@@ -29,7 +32,7 @@ export class RegexConsumer {
       }
 
       // Return array of matched strings found
-      return indices.map((index) => match[index]);
+      return indices.map((index) => match[index] || null);
     }
 
     // If nothing was found, return array of nulls so that array destructuring doesn't break

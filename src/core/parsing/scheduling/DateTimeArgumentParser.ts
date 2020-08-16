@@ -16,24 +16,22 @@ export class DateTimeArgumentParser {
   static parseTimeUnitArgument(input: string): Duration | null {
     const re = new RegexConsumer(input);
 
-    const [seconds] = re.get(/(\d*)\s*second/, [1]);
-    const [minutes] = re.get(/(\d*)\s*minute/, [1]);
-    const [hours] = re.get(/(\d*)\s*hour/, [1]);
-    const [days] = re.get(/(\d*)\s*day/, [1]);
-    const [weeks] = re.get(/(\d*)\s*week/, [1]);
-    const [months] = re.get(/(\d*)\s*month/, [1]);
-    const [years] = re.get(/(\d*)\s*year/, [1]);
-
-    //todo: how to parse week without number. how to handle optional groups in regexconsumer
+    const [hasSeconds, seconds] = re.get(/(?:(\d+)\s|^)second/, [0, 1]);
+    const [hasMinutes, minutes] = re.get(/(?:(\d+)\s|^)minute/, [0, 1]);
+    const [hasHours, hours] = re.get(/(?:(\d+)\s|^)hour/, [0, 1]);
+    const [hasDays, days] = re.get(/(?:(\d+)\s|^)day/, [0, 1]);
+    const [hasWeeks, weeks] = re.get(/(?:(\d+)\s|^)week/, [0, 1]);
+    const [hasMonths, months] = re.get(/(?:(\d+)\s|^)month/, [0, 1]);
+    const [hasYears, years] = re.get(/(?:(\d+)\s|^)year/, [0, 1]);
 
     const durationObject: DurationObject = {
-      ...(seconds && { seconds: parseInt(seconds) || 1 }),
-      ...(minutes && { minutes: parseInt(minutes) || 1 }),
-      ...(hours && { hours: parseInt(hours) || 1 }),
-      ...(days && { days: parseInt(days) || 1 }),
-      ...(weeks && { weeks: parseInt(weeks) || 1 }),
-      ...(months && { months: parseInt(months) || 1 }),
-      ...(years && { years: parseInt(years) || 1 }),
+      ...(hasSeconds && { seconds: parseInt(seconds) || 1 }),
+      ...(hasMinutes && { minutes: parseInt(minutes) || 1 }),
+      ...(hasHours && { hours: parseInt(hours) || 1 }),
+      ...(hasDays && { days: parseInt(days) || 1 }),
+      ...(hasWeeks && { weeks: parseInt(weeks) || 1 }),
+      ...(hasMonths && { months: parseInt(months) || 1 }),
+      ...(hasYears && { years: parseInt(years) || 1 }),
     };
 
     const duration = Duration.fromObject(durationObject);

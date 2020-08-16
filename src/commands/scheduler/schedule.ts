@@ -77,8 +77,6 @@ function processCommand(
     const parsedDuration = DateTimeArgumentParser.parseTimeUnitArgument(
       recurringUnitArg
     );
-
-    console.log({ parsedWeekday, parsedDuration });
   }
 }
 
