@@ -1,14 +1,9 @@
-import { Duration, DurationObject } from "luxon";
+import { DateTime, Duration, DurationObject } from "luxon";
 import { Weekday } from "./Enums";
 import { RegexConsumer } from "../RegexConsumer";
+import { Time } from "./Interfaces";
 
-export interface Time24h {
-  hour: number;
-  minute: number;
-  second: number;
-}
-
-export class DateTimeArgumentParser {
+export class ScheduleParser {
   static parseWeekday(input: string): Weekday | null {
     return Weekday[input.toUpperCase()] || null;
   }
@@ -35,11 +30,14 @@ export class DateTimeArgumentParser {
     };
 
     const duration = Duration.fromObject(durationObject);
-
     return duration.isValid ? duration : null;
   }
 
-  static parseTimeArgument(input: string): Time24h {
+  static parseTimeArgument(input: string): Time {
+    if (!input) {
+      return null;
+    }
+
     const re = new RegexConsumer(input);
 
     const [
@@ -61,5 +59,32 @@ export class DateTimeArgumentParser {
     }
 
     return { hour, minute, second };
+  }
+
+  static parseDateArgument(input: string) {
+    return DateTime.fromISO(input);
+  }
+
+  static parseChannelId(input: string) {
+    return input?.replace(/[^0-9]+/g, "");
+  }
+
+  static parseUserList(input: string, ownUserId: string) {
+    const rawUserStrings = input.split(/\s*(?:and|,)+\s*/);
+    const userIds = new Set<string>();
+
+    // format the raw strings into id strings and replace 'me' with ownUserId
+    for (let userString of rawUserStrings) {
+      if (userString.toLowerCase() === "me") {
+        userIds.add(ownUserId);
+      } else {
+        const parsedId = userString.replace(/[^0-9]/g, "");
+        if (parsedId.length > 16) {
+          userIds.add(parsedId);
+        }
+      }
+    }
+
+    return Array.from(userIds);
   }
 }

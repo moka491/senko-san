@@ -1,22 +1,14 @@
 import { DateTime, Duration, DurationObject } from "luxon";
 import { Weekday } from "./Enums";
 import { RegexConsumer } from "../RegexConsumer";
-
-export interface WeekdayInput {
-  weekday: Weekday;
-}
-
-export interface DurationInput {
-  duration: Duration;
-}
-
-export interface WeekdayDurationInput {
-  weekday?: Weekday;
-  duration?: Duration;
-}
+import {
+  WeekdayDurationInput,
+  WeekdayInput,
+  DurationInput,
+} from "./Interfaces";
 
 export class DateTimeCalculator {
-  this(input: WeekdayInput): DateTime {
+  static this(input: WeekdayInput): DateTime {
     let date = DateTime.utc();
 
     // Set weekday to the given one
@@ -25,7 +17,7 @@ export class DateTimeCalculator {
     return date;
   }
 
-  next(input: WeekdayDurationInput): DateTime {
+  static next(input: WeekdayDurationInput): DateTime {
     let date = DateTime.utc();
 
     // If a weekday was given (i.e. next Wednesday)
@@ -41,16 +33,23 @@ export class DateTimeCalculator {
       date = date.plus(input.duration);
     }
 
+    if (input.at) date = date.set(input.at);
+
     return date;
   }
 
-  in(input: DurationInput): DateTime {
+  static in(input: DurationInput): DateTime {
     let date = DateTime.utc();
+
+    if (input.at) date = date.set(input.at);
 
     return date.plus(input.duration);
   }
 
-  every(input: WeekdayDurationInput, iterations: number = 100): DateTime[] {
+  static every(
+    input: WeekdayDurationInput,
+    iterations: number = 100
+  ): DateTime[] {
     const resultingDates: DateTime[] = [];
 
     let date = DateTime.utc();
@@ -59,14 +58,18 @@ export class DateTimeCalculator {
       date = date.set({ weekday: input.weekday });
 
       for (let i = 1; i <= iterations; i++) {
-        const calculatedDate = date.plus({ week: i });
+        let calculatedDate = date.plus({ week: i });
+
+        if (input.at) calculatedDate = calculatedDate.set(input.at);
         resultingDates.push(calculatedDate);
       }
     } else if (input.duration) {
       for (let i = 1; i <= iterations; i++) {
         const scaledDuration = input.duration.mapUnits((x) => x * i);
-        const calculatedDate = date.plus(scaledDuration);
 
+        let calculatedDate = date.plus(scaledDuration);
+
+        if (input.at) calculatedDate = calculatedDate.set(input.at);
         resultingDates.push(calculatedDate);
       }
     }
