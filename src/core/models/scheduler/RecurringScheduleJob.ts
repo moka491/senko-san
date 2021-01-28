@@ -15,7 +15,7 @@ import { ScheduleJob } from "./ScheduleJob";
  * or a string like "every minute", "every Tuesday" etc.
  */
 @Table
-export class RecurringScheduleJob extends Model<RecurringScheduleJob> {
+export class RecurringScheduleJob extends Model {
   @ForeignKey(() => ScheduleJob)
   @Column
   jobId: number;

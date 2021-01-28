@@ -6,7 +6,7 @@ import { DataTypes } from "sequelize/types";
  * The information is encrypted where necessary.
  */
 @Table
-export class User extends Model<User> {
+export class User extends Model {
   @PrimaryKey
   @Column(DataTypes.BIGINT)
   id: string;

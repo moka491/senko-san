@@ -20,7 +20,7 @@ export class CommandGroup {
   }
 
   findCommand(commandName: string): Command {
-    for (let command of this.commands) {
+    for (const command of this.commands) {
       if (command?.options.name === commandName) {
         return command;
       }
@@ -46,7 +46,7 @@ export class CommandGroup {
     }
 
     // Now get the name of the command from the arguments
-    let commandName = commandArgs[0];
+    const commandName = commandArgs[0];
 
     // Try to find a command with the retrieved name and return it if found,
     // including the remaining arguments next to it

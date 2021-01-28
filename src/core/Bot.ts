@@ -18,7 +18,7 @@ export class Bot {
     this.dataHandler = new DataHandler(this.config);
   }
 
-  async start() {
+  async start(): Promise<void> {
     await this.dataHandler.init();
 
     this.client.once("ready", this.onceReady.bind(this));
@@ -27,11 +27,11 @@ export class Bot {
     await this.client.login(this.config.bot.token);
   }
 
-  onceReady() {
+  onceReady(): void {
     console.log("I am ready!");
   }
 
-  onMessage(message: Message) {
+  onMessage(message: Message): void {
     if (
       !message.content.startsWith(this.config.bot.prefix) ||
       message.author.bot

@@ -7,7 +7,7 @@ import { User } from "../User";
  * who can be mentioned when a scheduled task executes.
  */
 @Table
-export class UserScheduleJobs extends Model<UserScheduleJobs> {
+export class UserScheduleJobs extends Model {
   @ForeignKey(() => User)
   @Column
   userId: number;

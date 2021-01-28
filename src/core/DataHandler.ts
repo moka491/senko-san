@@ -18,7 +18,7 @@ export class DataHandler {
     );
   }
 
-  async init() {
+  async init(): Promise<void> {
     await this.sequelize.authenticate().catch((err) => {
       console.log("Couldn't connect to database server! Error: " + err);
       process.exit(1);

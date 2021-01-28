@@ -13,7 +13,7 @@ import { ScheduleJob } from "./ScheduleJob";
  * It's created whenever a user specifies a date or something like "next Monday"
  */
 @Table
-export class DateBasedScheduleJob extends Model<DateBasedScheduleJob> {
+export class DateBasedScheduleJob extends Model {
   @ForeignKey(() => ScheduleJob)
   @Column
   jobId: number;

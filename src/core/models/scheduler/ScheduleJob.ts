@@ -15,7 +15,7 @@ import { UserScheduleJobs } from "./UserScheduleJobs";
  * or "RecurringScheduleJob" for recurring events.
  */
 @Table
-export class ScheduleJob extends Model<ScheduleJob> {
+export class ScheduleJob extends Model {
   @Column
   serverId: number;
 
