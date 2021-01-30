@@ -1,13 +1,13 @@
 <p align="center">
-<img height="180" align="absmiddle" src="https://user-images.githubusercontent.com/31903525/87408844-5e06fe80-c5c4-11ea-8b52-3d306cd332b2.png" alt="Logo of Koro-san">
+<img height="180" align="absmiddle" src="https://i.imgur.com/vvHwGne.png" alt="Logo of Senko-san from Sewayaki Kitsune No Senko-san">
 </p>
-<p align="center"><i>Give me all your fingers. Right now!</i></p>
+<p align="center"><i>I'll hope to be of service to you noija!</i></p>
 
-# Koro-san
+# Senko-san
 
-![David](https://img.shields.io/david/moka491/korosan?style=flat-square)![Codecov branch](https://img.shields.io/codecov/c/github/moka491/korosan/master?style=flat-square)![GitHub package.json version](https://img.shields.io/github/package-json/v/moka491/korosan?style=flat-square)![Node engine version](https://img.shields.io/badge/node-%3E%3D14.0.0-blue?style=flat-square)![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/moka491/korosan/discord.js?style=flat-square)
+![David](https://img.shields.io/david/moka491/senko-san?style=flat-square)![Codecov branch](https://img.shields.io/codecov/c/github/moka491/senko-san/master?style=flat-square)![GitHub package.json version](https://img.shields.io/github/package-json/v/moka491/senko-san?style=flat-square)![Node engine version](https://img.shields.io/badge/node-%3E%3D14.0.0-blue?style=flat-square)![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/moka491/senko-san/discord.js?style=flat-square)
 
-Koro-san is your helpful Discord bot with a whole bunch of features (wip™).  
+Senko-san is your helpful Discord bot with a whole bunch of features (wip™).  
 It's a practice project for me to learn TypeScript, Jest, TOML and Node.
 
 ## Getting started
@@ -85,6 +85,6 @@ You can always run them using `npm test`.
 
 The code in this project is licensed under MIT license.
 
-- - -
+---
 
 _readme template gladly taken from [jehna/readme-best-practices](https://github.com/jehna/readme-best-practices)_

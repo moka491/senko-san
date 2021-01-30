@@ -1,6 +1,6 @@
 {
-  "name": "korosan",
-  "version": "0.2.1",
+  "name": "senko",
+  "version": "0.3",
   "engines": {
     "node": ">=14.0.0"
   },

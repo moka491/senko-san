@@ -4,7 +4,7 @@ token = "<your discord bot token>"
 
 [database]
 hostname = "localhost"
-database = "korosan"
+database = "senko"
 username = "postgres"
 password = "postgres"
 port = 5432

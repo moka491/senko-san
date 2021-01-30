@@ -24,7 +24,7 @@ export const Defaults: Config = {
     port: 5432,
     username: "root",
     password: "",
-    database: "korosan",
+    database: "senko",
     logQueries: false,
   },
 };
