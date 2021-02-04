@@ -1,6 +1,15 @@
-import { PingCommand } from "./ping";
-import { CommandGroup } from "../../core/commands/CommandGroup";
+import { Command, CommandGroup } from "../../core/Decorators";
+import { Bot } from "../../core/Bot";
+import { Message } from "discord.js";
 
-export const SystemGroup = new CommandGroup({ groupPrefix: "system" }, [
-  new PingCommand(),
-]);
+@CommandGroup({
+  prefix: "system",
+})
+export class SystemGroup {
+  @Command({
+    aliases: ["pong"],
+  })
+  ping(bot: Bot, message: Message, args: string[]): void {
+    return;
+  }
+}

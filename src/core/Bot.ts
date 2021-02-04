@@ -32,21 +32,19 @@ export class Bot {
   }
 
   onMessage(message: Message): void {
-    if (
-      !message.content.startsWith(this.config.bot.prefix) ||
-      message.author.bot
-    ) {
-      return;
-    }
-
-    const args = message.content
-      .slice(this.config.bot.prefix.length)
-      .split(/ +/);
-    const commandMatch = Commands.findRecursive(args);
-
-    if (commandMatch) {
-      const [command, remainingArgs] = commandMatch;
-      command.invoke(this, message, remainingArgs);
-    }
+    // if (
+    //   !message.content.startsWith(this.config.bot.prefix) ||
+    //   message.author.bot
+    // ) {
+    //   return;
+    // }
+    // const args = message.content
+    //   .slice(this.config.bot.prefix.length)
+    //   .split(/ +/);
+    // const commandMatch = Commands.findRecursive(args);
+    // if (commandMatch) {
+    //   const [command, remainingArgs] = commandMatch;
+    //   command.invoke(this, message, remainingArgs);
+    // }
   }
 }

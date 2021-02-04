@@ -1,4 +1,4 @@
+import { CommandGroup } from "../core/types/CommandGroup";
 import { SystemGroup } from "./system";
-import { CommandGroup } from "../core/commands/CommandGroup";
 
-export const Commands = new CommandGroup({}, [], [SystemGroup]);
+export const Commands = new SystemGroup();
