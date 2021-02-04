@@ -3,10 +3,13 @@ import { DataHandler } from "./DataHandler";
 import { Config } from "./Config";
 import { ConfigHandler } from "./ConfigHandler";
 import { Commands } from "../commands";
+import { CommandHandler } from "./CommandHandler";
+import { SystemGroup } from "../commands/system";
 
 export class Bot {
   private client: Client;
   private dataHandler: DataHandler;
+  private commandHandler: CommandHandler;
   private configHandler: ConfigHandler;
   private config: Config;
 
@@ -16,6 +19,7 @@ export class Bot {
     this.config = this.configHandler.config;
 
     this.dataHandler = new DataHandler(this.config);
+    this.commandHandler = new CommandHandler([SystemGroup]);
   }
 
   async start(): Promise<void> {

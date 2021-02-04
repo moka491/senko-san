@@ -22,7 +22,7 @@ export const Command = (options: CommandOptions): MethodDecorator => {
     // Add new command info to list of commands of this group
     const classCommands =
       Reflect.getMetadata(COMMANDS_META_KEY, classTarget) || [];
-    classCommands[methodName] = commandData;
+    classCommands.push(commandData);
 
     // Store it alongside other commands in the class metadata
     Reflect.defineMetadata(COMMANDS_META_KEY, classCommands, classTarget);

@@ -25,7 +25,7 @@ export class CommandHandler {
   private getCommandGroupOptions(
     commandGroup: CommandGroupClass
   ): CommandGroupOptions {
-    const groupOptions = Reflect.getMetadata(
+    const groupOptions: CommandGroupOptions = Reflect.getMetadata(
       COMMAND_GROUP_OPTIONS_META_KEY,
       commandGroup
     );
@@ -38,13 +38,12 @@ export class CommandHandler {
   }
 
   private getCommandGroupCommands(commandGroup: CommandGroupClass): Command[] {
-    const groupCommands = Reflect.getMetadata(COMMANDS_META_KEY, commandGroup);
+    const groupCommands: Command[] = Reflect.getMetadata(
+      COMMANDS_META_KEY,
+      commandGroup
+    );
 
-    if (groupCommands) {
-      return groupCommands;
-    } else {
-      throw `${commandGroup.name} isn't a valid CommandGroup. Make sure to decorate it with the CommandGroup decorator!`;
-    }
+    return groupCommands || [];
   }
 
   private buildGroupTreeRecursive(
@@ -76,9 +75,9 @@ export class CommandHandler {
           for (const commandAlias of command.options.aliases) {
             groupNode[commandAlias] = command;
           }
-        } else {
-          groupNode[command.originalName] = command;
         }
+
+        groupNode[command.options.name || command.originalName] = command;
       }
 
       // Recursively add subtrees of subgroups
