@@ -1,12 +1,19 @@
 import { CommandGroupOptions } from "./types/CommandGroup";
-import { Command as CommandData, CommandOptions } from "./types/Command";
-import "reflect-metadata";
+import {
+  Command as CommandData,
+  CommandFunction,
+  CommandOptions,
+} from "./types/Command";
 
 export const COMMANDS_META_KEY = "commands";
 export const COMMAND_GROUP_OPTIONS_META_KEY = "commandGroupOptions";
 
-export const Command = (options: CommandOptions): MethodDecorator => {
-  return (target, property, descriptor: PropertyDescriptor) => {
+export const Command = (options: CommandOptions) => {
+  return (
+    target,
+    property,
+    descriptor: TypedPropertyDescriptor<CommandFunction>
+  ): void => {
     // Acquire class reference from method
     const classTarget =
       typeof target === "object" ? target.constructor : target;
@@ -19,7 +26,7 @@ export const Command = (options: CommandOptions): MethodDecorator => {
       invoke: descriptor.value,
     };
 
-    // Add new command info to list of commands of this group
+    // Add new command data to list of commands of this group
     const classCommands =
       Reflect.getMetadata(COMMANDS_META_KEY, classTarget) || [];
     classCommands.push(commandData);

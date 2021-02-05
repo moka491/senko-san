@@ -2,7 +2,6 @@ import { Client, Message } from "discord.js";
 import { DataHandler } from "./DataHandler";
 import { Config } from "./Config";
 import { ConfigHandler } from "./ConfigHandler";
-import { Commands } from "../commands";
 import { CommandHandler } from "./CommandHandler";
 import { SystemGroup } from "../commands/system";
 
@@ -19,7 +18,7 @@ export class Bot {
     this.config = this.configHandler.config;
 
     this.dataHandler = new DataHandler(this.config);
-    this.commandHandler = new CommandHandler([SystemGroup]);
+    this.commandHandler = new CommandHandler(this, this.config, [SystemGroup]);
   }
 
   async start(): Promise<void> {
@@ -36,19 +35,6 @@ export class Bot {
   }
 
   onMessage(message: Message): void {
-    // if (
-    //   !message.content.startsWith(this.config.bot.prefix) ||
-    //   message.author.bot
-    // ) {
-    //   return;
-    // }
-    // const args = message.content
-    //   .slice(this.config.bot.prefix.length)
-    //   .split(/ +/);
-    // const commandMatch = Commands.findRecursive(args);
-    // if (commandMatch) {
-    //   const [command, remainingArgs] = commandMatch;
-    //   command.invoke(this, message, remainingArgs);
-    // }
+    this.commandHandler.handleCommand(message);
   }
 }

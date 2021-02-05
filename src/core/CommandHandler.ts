@@ -1,23 +1,29 @@
-import {
-  COMMANDS_META_KEY,
-  COMMAND_GROUP_OPTIONS_META_KEY,
-} from "./Decorators";
-import { Command } from "./types/Command";
+import { Message } from "discord.js";
+import { Bot } from "./Bot";
+import { Config } from "./Config";
+import { Command, CommandArgs } from "./types/Command";
 import {
   CommandGroup,
   CommandGroupClass,
   CommandGroupOptions,
 } from "./types/CommandGroup";
+import {
+  COMMANDS_META_KEY,
+  COMMAND_GROUP_OPTIONS_META_KEY,
+} from "./Decorators";
 
 interface CommandTreeNode {
   [name: string]: CommandTreeNode | Command;
 }
-
 export class CommandHandler {
   private commandTree: CommandTreeNode;
   private groupTree: CommandGroup[];
 
-  constructor(commandGroupClasses: CommandGroupClass[]) {
+  constructor(
+    private bot: Bot,
+    private config: Config,
+    commandGroupClasses: CommandGroupClass[]
+  ) {
     this.groupTree = this.buildGroupTreeRecursive(commandGroupClasses);
     this.commandTree = this.buildCommandTreeRecursive(this.groupTree);
   }
@@ -102,16 +108,35 @@ export class CommandHandler {
     return subtree;
   }
 
-  findCommandInTree(treeNode: CommandTreeNode, commandArgs: string[]): Command {
-    const nextNode = treeNode[commandArgs[0]];
+  findCommandInTree(
+    treeNode: CommandTreeNode,
+    commandArgs: string[]
+  ): [Command, CommandArgs] {
+    const nextNode = treeNode[commandArgs.shift()];
 
     if (nextNode) {
       if (nextNode.invoke) {
-        return nextNode as Command;
+        return [nextNode as Command, commandArgs];
       } else {
-        commandArgs.shift();
         return this.findCommandInTree(nextNode as CommandTreeNode, commandArgs);
       }
+    }
+  }
+
+  handleCommand(msg: Message): void {
+    if (!msg.content.startsWith(this.config.bot.prefix) || msg.author.bot) {
+      return;
+    }
+
+    const result = this.findCommandInTree(
+      this.commandTree,
+      msg.content.substr(this.config.bot.prefix.length).split(" ")
+    );
+
+    if (result) {
+      const [command, args] = result;
+
+      command.invoke(this.bot, msg, args);
     }
   }
 
