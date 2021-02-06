@@ -1,19 +1,21 @@
-import * as fs from "fs";
-import * as path from "path";
 import * as TOML from "@iarna/toml";
+import * as fs from "fs";
 import merge from "lodash.merge";
-import { Defaults, Config } from "./Config";
+import * as path from "path";
+import { singleton } from "tsyringe";
+import { Config, Defaults } from "./Config";
 
 const CONFIG_PATH = path.resolve(__dirname, "../../config/config.toml");
 
+@singleton()
 export class ConfigHandler {
   private _config: Config;
 
-  get config(): Config {
-    return this._config;
+  constructor() {
+    this.load();
   }
 
-  load(): this {
+  private load(): void {
     // Exit if the user config file doesn't exist
     if (!fs.existsSync(CONFIG_PATH)) {
       throw Error(
@@ -35,8 +37,9 @@ export class ConfigHandler {
 
     // Merge the user config with the defaults
     this._config = merge(Defaults, userConfig);
+  }
 
-    // Return instance for chaining
-    return this;
+  get config(): Config {
+    return this._config;
   }
 }

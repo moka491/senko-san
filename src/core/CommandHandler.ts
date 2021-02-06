@@ -1,6 +1,5 @@
 import { Message } from "discord.js";
 import { Bot } from "./Bot";
-import { Config } from "./Config";
 import { Command, CommandArgs } from "./types/Command";
 import {
   CommandGroup,
@@ -11,19 +10,24 @@ import {
   COMMANDS_META_KEY,
   COMMAND_GROUP_OPTIONS_META_KEY,
 } from "./Decorators";
+import { delay, inject, singleton } from "tsyringe";
+import { ConfigHandler } from "./ConfigHandler";
 
 interface CommandTreeNode {
   [name: string]: CommandTreeNode | Command;
 }
+
+@singleton()
 export class CommandHandler {
   private commandTree: CommandTreeNode;
   private groupTree: CommandGroup[];
 
   constructor(
-    private bot: Bot,
-    private config: Config,
-    commandGroupClasses: CommandGroupClass[]
-  ) {
+    @inject(delay(() => Bot)) private bot: Bot,
+    private configHandler: ConfigHandler
+  ) {}
+
+  loadCommands(commandGroupClasses: CommandGroupClass[]): void {
     this.groupTree = this.buildGroupTreeRecursive(commandGroupClasses);
     this.commandTree = this.buildCommandTreeRecursive(this.groupTree);
   }
@@ -124,13 +128,16 @@ export class CommandHandler {
   }
 
   handleCommand(msg: Message): void {
-    if (!msg.content.startsWith(this.config.bot.prefix) || msg.author.bot) {
+    if (
+      !msg.content.startsWith(this.configHandler.config.bot.prefix) ||
+      msg.author.bot
+    ) {
       return;
     }
 
     const result = this.findCommandInTree(
       this.commandTree,
-      msg.content.substr(this.config.bot.prefix.length).split(" ")
+      msg.content.substr(this.configHandler.config.bot.prefix.length).split(" ")
     );
 
     if (result) {

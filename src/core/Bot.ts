@@ -1,24 +1,21 @@
 import { Client, Message } from "discord.js";
-import { DataHandler } from "./DataHandler";
-import { Config } from "./Config";
-import { ConfigHandler } from "./ConfigHandler";
-import { CommandHandler } from "./CommandHandler";
+import { singleton } from "tsyringe";
 import { SystemGroup } from "../commands/system";
+import { CommandHandler } from "./CommandHandler";
+import { ConfigHandler } from "./ConfigHandler";
+import { DataHandler } from "./DataHandler";
 
+@singleton()
 export class Bot {
   private client: Client;
-  private dataHandler: DataHandler;
-  private commandHandler: CommandHandler;
-  private configHandler: ConfigHandler;
-  private config: Config;
 
-  constructor() {
+  constructor(
+    private configHandler: ConfigHandler,
+    private dataHandler: DataHandler,
+    private commandHandler: CommandHandler
+  ) {
     this.client = new Client({ shards: "auto" });
-    this.configHandler = new ConfigHandler().load();
-    this.config = this.configHandler.config;
-
-    this.dataHandler = new DataHandler(this.config);
-    this.commandHandler = new CommandHandler(this, this.config, [SystemGroup]);
+    this.commandHandler.loadCommands([SystemGroup]);
   }
 
   async start(): Promise<void> {
@@ -27,7 +24,7 @@ export class Bot {
     this.client.once("ready", this.onceReady.bind(this));
     this.client.on("message", this.onMessage.bind(this));
 
-    await this.client.login(this.config.bot.token);
+    await this.client.login(this.configHandler.config.bot.token);
   }
 
   onceReady(): void {

@@ -1,10 +1,15 @@
 import { Sequelize } from "sequelize-typescript";
+import { singleton } from "tsyringe";
 import { Config } from "./Config";
+import { ConfigHandler } from "./ConfigHandler";
 
+@singleton()
 export class DataHandler {
   private sequelize: Sequelize;
 
-  constructor({ database }: Config) {
+  constructor(private configHandler: ConfigHandler) {
+    const { database } = configHandler.config;
+
     this.sequelize = new Sequelize(
       database.database,
       database.username,
