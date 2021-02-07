@@ -35,7 +35,7 @@ describe("Config Handler", () => {
     });
 
     // Load the config
-    configHandler.load();
+    configHandler.loadConfig();
 
     expect(configHandler.config).toBeDefined();
   });
@@ -46,7 +46,7 @@ describe("Config Handler", () => {
       [path.resolve(__dirname, "../../config")]: {},
     });
 
-    expect(configHandler.load).toThrowError(
+    expect(configHandler.loadConfig).toThrowError(
       /The bot's config file wasn't found/
     );
   });
@@ -60,7 +60,7 @@ describe("Config Handler", () => {
       )]: MOCK_CONFIG_INVALID,
     });
 
-    expect(configHandler.load).toThrowError(
+    expect(configHandler.loadConfig).toThrowError(
       /There's an error in the bot's config file/
     );
   });

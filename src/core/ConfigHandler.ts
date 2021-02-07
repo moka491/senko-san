@@ -15,7 +15,7 @@ export class ConfigHandler {
     this.loadConfig();
   }
 
-  private loadConfig(): void {
+  loadConfig(): void {
     // Exit if the user config file doesn't exist
     if (!fs.existsSync(CONFIG_PATH)) {
       throw Error(

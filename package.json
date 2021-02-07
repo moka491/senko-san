@@ -10,8 +10,8 @@
     "dev": "nodemon",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
-    "test": "npm run build && jest",
-    "test:coverage": "npm run build && jest --collectCoverage",
+    "test": "jest",
+    "test:coverage": "jest --collectCoverage",
     "test:clearCache": "jest --clearCache",
     "test:uploadCoverageWindows": "codecov.exe -f coverage/coverage-final.json -t",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix"
