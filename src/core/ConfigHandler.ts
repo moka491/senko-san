@@ -1,21 +1,21 @@
 import * as TOML from "@iarna/toml";
 import * as fs from "fs";
+import { injectable } from "inversify";
 import merge from "lodash.merge";
 import * as path from "path";
-import { singleton } from "tsyringe";
 import { Config, Defaults } from "./Config";
 
 const CONFIG_PATH = path.resolve(__dirname, "../../config/config.toml");
 
-@singleton()
+@injectable()
 export class ConfigHandler {
   private _config: Config;
 
   constructor() {
-    this.load();
+    this.loadConfig();
   }
 
-  private load(): void {
+  private loadConfig(): void {
     // Exit if the user config file doesn't exist
     if (!fs.existsSync(CONFIG_PATH)) {
       throw Error(

@@ -8,7 +8,11 @@
     "resolveJsonModule": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "types": [
+      "node",
+      "reflect-metadata"
+    ],
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]

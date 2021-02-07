@@ -10,26 +10,28 @@ import {
   COMMANDS_META_KEY,
   COMMAND_GROUP_OPTIONS_META_KEY,
 } from "./Decorators";
-import { delay, inject, singleton } from "tsyringe";
 import { ConfigHandler } from "./ConfigHandler";
+import { inject, injectable } from "inversify";
+import { TYPES } from "../types";
 
 interface CommandTreeNode {
   [name: string]: CommandTreeNode | Command;
 }
 
-@singleton()
+@injectable()
 export class CommandHandler {
   private commandTree: CommandTreeNode;
   private groupTree: CommandGroup[];
 
   constructor(
-    @inject(delay(() => Bot)) private bot: Bot,
-    private configHandler: ConfigHandler
-  ) {}
-
-  loadCommands(commandGroupClasses: CommandGroupClass[]): void {
-    this.groupTree = this.buildGroupTreeRecursive(commandGroupClasses);
+    @inject(TYPES.Bot) private bot: Bot,
+    @inject(TYPES.ConfigHandler) private configHandler: ConfigHandler,
+    @inject(TYPES.CommandGroups) rootCommandGroups: CommandGroupClass[]
+  ) {
+    this.groupTree = this.buildGroupTreeRecursive(rootCommandGroups);
     this.commandTree = this.buildCommandTreeRecursive(this.groupTree);
+
+    this.bot.on("message", this.handleCommand.bind(this));
   }
 
   private getCommandGroupOptions(
@@ -105,6 +107,7 @@ export class CommandHandler {
 
       // Add node to subtree
       subtree = {
+        ...subtree,
         ...groupNode,
       };
     }
@@ -146,26 +149,4 @@ export class CommandHandler {
       command.invoke(this.bot, msg, args);
     }
   }
-
-  /*
-          
-              const groupTree = [
-              { name: "Group1", options: {}, commands: [], subgroups: [] },
-              { name: "Group2", options: {}, commands: [], subgroups: [] },
-            ];
-
-            const commandTree = {
-                groupPrefix1: {
-                    command1: {},
-                    alias1: {}
-                },
-                command2: {},
-                command3: {},
-            }
-
-            interface CommandTreeNode {
-                [name: string]: CommandTreeNode | CommandNode
-            }
-  
-  */
 }

@@ -1,14 +1,16 @@
+import { inject, injectable } from "inversify";
 import { Sequelize } from "sequelize-typescript";
-import { singleton } from "tsyringe";
-import { Config } from "./Config";
+import { TYPES } from "../types";
 import { ConfigHandler } from "./ConfigHandler";
 
-@singleton()
+@injectable()
 export class DataHandler {
   private sequelize: Sequelize;
 
-  constructor(private configHandler: ConfigHandler) {
-    const { database } = configHandler.config;
+  constructor(
+    @inject(TYPES.ConfigHandler) private configHandler: ConfigHandler
+  ) {
+    const { database } = this.configHandler.config;
 
     this.sequelize = new Sequelize(
       database.database,
@@ -21,9 +23,11 @@ export class DataHandler {
         models: ["models/**/*!(.test.ts|.test.js)"],
       }
     );
+
+    this.connectToDatabase();
   }
 
-  async init(): Promise<void> {
+  private async connectToDatabase(): Promise<void> {
     await this.sequelize.authenticate().catch((err) => {
       console.log("Couldn't connect to database server! Error: " + err);
       process.exit(1);
