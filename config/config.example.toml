@@ -3,7 +3,7 @@
 token = "<your discord bot token>"
 
 [database]
-hostname = "localhost"
+hostname = "senko-db" # or any ip address
 database = "senko"
 username = "postgres"
 password = "postgres"

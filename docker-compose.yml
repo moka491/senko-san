@@ -1,0 +1,15 @@
+version: "3"
+services:
+  senko-bot:
+    build:
+      context: ./
+      target: production
+    restart: always
+
+  senko-db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: senko
+      POSTGRES_PASSWORD: postgres
+    
